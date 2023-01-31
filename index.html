@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style type="text/css">
+            #canvas{
+                
+                /* background-color: black; */
+            }
+        </style>
+    </head>
+    <body onload="draw();">
+        <canvas id ="canvas">
+
+        </canvas>
+       
+    </body>
+    <script type="application/javascript">
+        function circle(){
+            var x = randomPosition(width-50);
+            
+            var y = randomPosition(height-50);
+            
+            var radius = randomInterval(30,50);
+            var color = randomColor();
+            ctx.beginPath();
+            ctx.arc(x, y, radius, 0, 2 * Math.PI);
+            ctx.fillStyle = color;
+            ctx.fill()
+        }
+   
+        function rectangle(){
+           
+            var x = randomPosition(width-40);
+            var y = randomPosition(height-40);
+            var side = randomInterval(20,40);
+            var color = randomColor();
+            ctx.fillStyle = color;
+            ctx.fillRect(x,y,side,side);
+        }
+        function randomInterval(minimum,maximum){
+            return Math.floor(Math.random() * ((maximum+1) - minimum) + minimum);
+           
+        }
+     
+        function randomPosition(maximum){
+            var rand = Math.floor(Math.random() * (maximum+1));
+            if(rand<50){
+                return 50;
+            }
+            else{
+            return rand;
+        }
+        }
+        function clearScreen(){
+            ctx.clearRect(0,0,width,height);
+        }
+        function randomColor(){
+           
+            // var colorArr =["yellow","green","red","blue"];
+            var redish = randomInterval(0,256)
+           
+            var greenish = randomInterval(0,256)
+            var blueish = randomInterval(0,256)
+            var all = redish + "," + greenish +","+ blueish
+           
+            var selected = "rgb("+all+")";
+
+          
+            return selected
+
+        }
+        function draw(){
+       
+            var counter = 0
+            
+            canvas = document.getElementById("canvas");
+            ctx = canvas.getContext("2d");
+            ctx.canvas.width  = window.innerWidth;
+            ctx.canvas.height = window.innerHeight;
+            width = canvas.width
+            height = canvas.height
+            
+            setInterval(function () {
+                var choice = randomInterval(0,2)
+                if(counter<20){
+                if(choice<1){
+                    rectangle();
+                    counter++;
+                    
+                }
+                else{
+                    circle()
+                    counter++;
+                    
+                }
+            }
+            else{
+                clearScreen();
+                counter=0;
+             }
+
+            }, 1000);
+           
+             
+          
+
+
+            
+           
+        }
+    
+    </script>
+</html>
